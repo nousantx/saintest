@@ -1,0 +1,37 @@
+{
+  "name": "saintest",
+  "version": "0.1.0",
+  "description": "Lightweight testing framework",
+  "author": "NOuSantx <nousantx@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/nousantx/siantest#readme",
+  "keywords": [
+    "keywords"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nousantx/siantest.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nousantx/siantest/issues"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "start": "echo 'hello world'"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.32.1"
+  }
+}
