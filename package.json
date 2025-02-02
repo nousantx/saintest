@@ -1,12 +1,14 @@
 {
   "name": "saintest",
-  "version": "0.1.0",
+  "version": "0.0.0-alpha.1",
   "description": "Lightweight testing framework",
   "author": "NOuSantx <nousantx@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/nousantx/siantest#readme",
   "keywords": [
-    "keywords"
+    "testing-franework",
+    "javascript-testing",
+    "framework"
   ],
   "repository": {
     "type": "git",
@@ -16,22 +18,31 @@
     "url": "https://github.com/nousantx/siantest/issues"
   },
   "files": [
+    "cli.js",
     "dist",
     "package.json",
     "README.md",
     "LICENSE"
   ],
   "type": "module",
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
+  "bin": {
+    "saintest": "cli.js"
+  },
   "scripts": {
-    "start": "echo 'hello world'"
+    "test": "saintest",
+    "build": "rollup -c"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "rollup": "^4.32.1"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "commander": "^13.1.0",
+    "globby": "^14.0.2"
   }
 }
