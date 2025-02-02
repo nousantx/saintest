@@ -1,9 +1,9 @@
 #!/usr/bin/env node
+import path from 'node:path'
+import fs from 'node:fs/promises'
+import { pathToFileURL } from 'node:url'
 import { program } from 'commander'
 import { globby } from 'globby'
-import path from 'path'
-import fs from 'fs/promises'
-import { pathToFileURL } from 'url'
 import { run } from 'saintest'
 
 // Default configuration
@@ -12,7 +12,6 @@ const defaultConfig = {
   testTimeout: 5000,
   testDir: 'test',
   verbose: false,
-  bail: false,
   maxWorkers: 1
 }
 
@@ -43,7 +42,7 @@ async function loadConfig() {
 
 async function findTestFiles(patterns, config) {
   try {
-    const normalizedPatterns = patterns.map(pattern => {
+    const normalizedPatterns = patterns.map((pattern) => {
       // If pattern starts with ! (negation), preserve it
       const isNegated = pattern.startsWith('!')
       const cleanPattern = isNegated ? pattern.slice(1) : pattern
@@ -103,8 +102,7 @@ program
   .option('-d, --testDir <dir>', 'directory containing test files')
   .option('-p, --pattern <pattern>', 'test file pattern')
   .option('-v, --verbose', 'enable verbose output')
-  .option('-b, --bail', 'stop on first failure')
-  .action(async options => {
+  .action(async (options) => {
     try {
       const fileConfig = await loadConfig()
       const config = {
@@ -112,8 +110,7 @@ program
         ...(options.timeout && { testTimeout: parseInt(options.timeout) }),
         ...(options.testDir && { testDir: options.testDir }),
         ...(options.pattern && { testMatch: [options.pattern] }),
-        ...(options.verbose && { verbose: true }),
-        ...(options.bail && { bail: true })
+        ...(options.verbose && { verbose: true })
       }
 
       if (config.verbose) {
