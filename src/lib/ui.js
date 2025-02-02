@@ -4,8 +4,8 @@ export const style = {
   dim: '\x1b[2m',
   italic: '\x1b[3m',
   underline: '\x1b[4m',
-  fg: n => `\x1b[38;5;${n}m`,
-  bg: n => `\x1b[48;5;${n}m`
+  fg: (n) => `\x1b[38;5;${n}m`,
+  bg: (n) => `\x1b[48;5;${n}m`
 }
 
 export const colors = {

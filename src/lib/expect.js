@@ -1,4 +1,4 @@
-import {style, colors} from "./ui.js"
+import { style, colors } from './ui.js'
 
 function formatDiff(actual, expected) {
   return `\n    ${style.fg(colors.success)}+ Expected: ${JSON.stringify(expected)}${style.reset}

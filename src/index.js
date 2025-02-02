@@ -94,7 +94,7 @@ export function it(name, fn) {
     only: () => {
       test.only = true
     },
-    timeout: ms => {
+    timeout: (ms) => {
       test.timeout = ms
     }
   }
@@ -103,8 +103,6 @@ export function it(name, fn) {
 export function test(name, fn) {
   return it(name, fn)
 }
-
-
 
 async function runTest(test, suite) {
   if (test.skip) {
@@ -158,7 +156,7 @@ async function runSuite(suite) {
   try {
     if (suite.beforeAll) await suite.beforeAll()
 
-    const onlyTests = suite.tests.filter(t => t.only)
+    const onlyTests = suite.tests.filter((t) => t.only)
     const testsToRun = onlyTests.length > 0 ? onlyTests : suite.tests
 
     for (const test of testsToRun) {
@@ -241,5 +239,4 @@ export async function run() {
   }
 }
 
-
-export {expect} from "./lib/expect.js"
+export { expect } from './lib/expect.js'
