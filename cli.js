@@ -4,15 +4,14 @@ import fs from 'node:fs/promises'
 import { pathToFileURL } from 'node:url'
 import { program } from 'commander'
 import { globby } from 'globby'
-import { run } from 'saintest'
+import { run } from './dist/index.esm.js'
 
 // Default configuration
 const defaultConfig = {
-  testMatch: ['**/*.test.js', '**/*.spec.js'],
-  testTimeout: 5000,
-  testDir: 'test',
-  verbose: false,
-  maxWorkers: 1
+  include: ['**/*.test.js', '**/*.spec.js'],
+  timeout: 5000,
+  dir: 'test',
+  verbose: false
 }
 
 async function loadConfig() {
@@ -56,8 +55,8 @@ async function findTestFiles(patterns, config) {
         return isNegated ? `!${cleanPattern}` : cleanPattern
       }
 
-      // Otherwise, combine with testDir
-      const combinedPattern = path.join(process.cwd(), config.testDir, cleanPattern)
+      // Otherwise, combine with dir
+      const combinedPattern = path.join(process.cwd(), config.dir, cleanPattern)
       return isNegated ? `!${combinedPattern}` : combinedPattern
     })
 
@@ -99,7 +98,7 @@ program
   .version('0.0.0-alpha.0')
   .option('-c, --config <path>', 'path to config file')
   .option('-t, --timeout <ms>', 'default timeout for tests in milliseconds')
-  .option('-d, --testDir <dir>', 'directory containing test files')
+  .option('-d, --dir <dir>', 'directory containing test files')
   .option('-p, --pattern <pattern>', 'test file pattern')
   .option('-v, --verbose', 'enable verbose output')
   .action(async (options) => {
@@ -107,9 +106,9 @@ program
       const fileConfig = await loadConfig()
       const config = {
         ...fileConfig,
-        ...(options.timeout && { testTimeout: parseInt(options.timeout) }),
-        ...(options.testDir && { testDir: options.testDir }),
-        ...(options.pattern && { testMatch: [options.pattern] }),
+        ...(options.timeout && { timeout: parseInt(options.timeout) }),
+        ...(options.dir && { dir: options.dir }),
+        ...(options.pattern && { include: [options.pattern] }),
         ...(options.verbose && { verbose: true })
       }
 
@@ -117,7 +116,7 @@ program
         console.log('Running with config:', config)
       }
 
-      const testFiles = await findTestFiles(config.testMatch, config)
+      const testFiles = await findTestFiles(config.include, config)
 
       if (testFiles.length === 0) {
         console.warn('No test files found')

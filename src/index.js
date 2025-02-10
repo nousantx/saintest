@@ -1,5 +1,5 @@
 import { style, colors } from './lib/ui.js'
-
+import { expect } from './lib/expect.js'
 export const testSuites = []
 export const defaultSuite = {
   name: 'Standalone Tests',
@@ -203,17 +203,14 @@ async function runSuite(suite) {
 export async function run() {
   startTime = performance.now()
 
-  // Run standalone tests first if they exist
   if (defaultSuite.tests.length > 0) {
     await runSuite(defaultSuite)
   }
 
-  // Run all other test suites sequentially
   for (const suite of testSuites) {
     await runSuite(suite)
   }
 
-  // Show final summary after all suites have completed
   const executionTime = getExecutionTime()
   const totalTestCount = passedTests + failedTests + skippedTests
   const passedPercentage = ((passedTests / (totalTestCount - skippedTests)) * 100).toFixed(2)
@@ -240,3 +237,17 @@ export async function run() {
 }
 
 export { expect } from './lib/expect.js'
+export default {
+  expect,
+  it,
+  test,
+  describe,
+  beforeEach,
+  afterEach,
+  beforeAll,
+  afterAll,
+  run,
+  testSuites,
+  defaultSuite,
+  currentSuite
+}
