@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import { pathToFileURL } from 'node:url'
 import { program } from 'commander'
 import { globby } from 'globby'
-import { run } from './dist/index.esm.js'
+import { run } from 'saintest'
 
 // Default configuration
 const defaultConfig = {
