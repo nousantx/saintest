@@ -10,5 +10,12 @@ npm i saintest
 
 ## Usage
 
-### Configuration Option
+```javascript
+import { test, expect, run } from 'saintest'
 
+test('Hello World!', () => {
+  expect(1).toBe(1)
+})
+
+run()
+```
